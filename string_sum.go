@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"strings"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -23,5 +24,8 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
+	if len(input) == strings.Count(input, " ") {
+		return "", errorEmptyInput
+	}
 	return "", nil
 }
