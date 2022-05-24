@@ -3,6 +3,7 @@ package string_sum
 import (
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -46,6 +47,16 @@ func StringSum(input string) (output string, err error) {
 	if len(operands) > 2 {
 		return "", fmt.Errorf("more than two operands: %w", errorNotTwoOperands)
 	}
+
+	operandFirst, err := strconv.Atoi(operands[0])
+	if err != nil {
+		return "", fmt.Errorf("operand is not number: %w", err)
+	}
+	operandSecond, err := strconv.Atoi(operands[1])
+	if err != nil {
+		return "", fmt.Errorf("operand is not number: %w", err)
+	}
+	output = strconv.Itoa(operandFirst + operandSecond)
 
 	return
 }
