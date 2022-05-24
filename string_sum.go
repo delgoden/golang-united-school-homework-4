@@ -36,9 +36,13 @@ func StringSum(input string) (output string, err error) {
 	j := 0
 	for i := len(input); i > 0; {
 		j = strings.LastIndexAny(input, "+-")
+		if j == -1 {
+			operands = append(operands, input)
+			break
+		}
 		operands = append(operands, input[j:i])
-		i = strings.LastIndexAny(input, "+-")
-		input = input[:strings.LastIndexAny(input, "+-")]
+		i = j
+		input = input[:i]
 	}
 
 	if len(operands) < 2 {
