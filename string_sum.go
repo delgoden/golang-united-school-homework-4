@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -24,8 +25,20 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
+	
 	if len(input) == strings.Count(input, " ") {
-		return "", errorEmptyInput
+		return "", fmt.Errorf("nothing was found in the passed string: %w", errorEmptyInput)
 	}
-	return "", nil
+
+	input = strings.ReplaceAll(input, " ", "")
+	operands := make([]string, 0, 2)
+	j := 0
+	for i := len(input); i > 0; {
+		j = strings.LastIndexAny(input, "+-")
+		operands = append(operands, input[j:i])
+		i = strings.LastIndexAny(input, "+-")
+		input = input[:strings.LastIndexAny(input, "+-")]
+	}
+
+	return
 }
