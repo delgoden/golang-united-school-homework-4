@@ -25,7 +25,7 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	
+
 	if len(input) == strings.Count(input, " ") {
 		return "", fmt.Errorf("nothing was found in the passed string: %w", errorEmptyInput)
 	}
@@ -38,6 +38,13 @@ func StringSum(input string) (output string, err error) {
 		operands = append(operands, input[j:i])
 		i = strings.LastIndexAny(input, "+-")
 		input = input[:strings.LastIndexAny(input, "+-")]
+	}
+
+	if len(operands) < 2 {
+		return "", fmt.Errorf("less than two operands: %w", errorNotTwoOperands)
+	}
+	if len(operands) > 2 {
+		return "", fmt.Errorf("more than two operands: %w", errorNotTwoOperands)
 	}
 
 	return
